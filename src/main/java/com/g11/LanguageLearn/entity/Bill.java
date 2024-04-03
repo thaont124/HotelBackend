@@ -1,9 +1,10 @@
 package com.g11.LanguageLearn.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
 @Entity
 public class Bill {
     @Id
@@ -14,11 +15,7 @@ public class Bill {
 
     private Float vat;
 
-    @OneToMany
-    @JoinColumn(name = "booked_room_id", referencedColumnName = "idBookedRomm")
-    private List<BookedRoom> bookedRoom;
+    private Integer status;
 
-    @OneToOne
-    @JoinColumn(name = "feedback_id", referencedColumnName = "idFeedback")
-    private Feedback feedback;
+
 }

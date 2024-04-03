@@ -1,7 +1,9 @@
 package com.g11.LanguageLearn.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Branch {
     @Id

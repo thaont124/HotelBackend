@@ -1,7 +1,9 @@
 package com.g11.LanguageLearn.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Room {
     @Id
@@ -14,8 +16,13 @@ public class Room {
 
     private Float pricePerHour;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "type_room_id", referencedColumnName = "idTypeRoom")
     private TypeRoom typeRoom;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id", referencedColumnName = "idBranch")
+    private Branch branch;
 
     private String img;
 }

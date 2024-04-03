@@ -1,8 +1,10 @@
 package com.g11.LanguageLearn.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
+@Data
 
 @Entity
 public class Discount {

@@ -1,10 +1,9 @@
 package com.g11.LanguageLearn.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Feedback {
     @Id
@@ -16,4 +15,8 @@ public class Feedback {
     private String imgFeedback;
 
     private String content;
+
+    @OneToOne
+    @JoinColumn(name = "bill_id", referencedColumnName = "idBill")
+    private Bill bill;
 }

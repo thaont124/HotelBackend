@@ -1,7 +1,9 @@
 package com.g11.LanguageLearn.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class ExchangeVoucher {
     @Id
@@ -12,8 +14,8 @@ public class ExchangeVoucher {
     @JoinColumn(name = "voucher_id", referencedColumnName = "idVoucher")
     private Voucher voucher;
     @ManyToOne
-    @JoinColumn(name = "point_id", referencedColumnName = "idPoint")
-    private Point point;
+    @JoinColumn(name = "user_id", referencedColumnName = "idUser")
+    private User user;
 
     private Integer statusVoucher;
 }
