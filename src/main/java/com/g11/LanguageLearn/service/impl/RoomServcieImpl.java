@@ -32,16 +32,6 @@ public class RoomServcieImpl implements RoomService {
 
     @Override
     public List<Room> findAvailableRooms(String value,SearchRequest searchRequest) {
-//        LocalDateTime IN = searchRequest.getCheckin();
-//        LocalDateTime OUT = searchRequest.getCheckout();
-//        Query query = entityManager.createQuery(
-//                "SELECT r FROM Room r WHERE (r.branch.hotel.nameHotel like :value or r.branch.address like :value) and (r.idRoom NOT IN (SELECT DISTINCT br.room.idRoom FROM BookedRoom br WHERE (FUNCTION('DATE_SUB', br.checkout, 1, 'DAY') BETWEEN :CHECKIN AND br.checkout OR :CHECKOUT BETWEEN FUNCTION('DATE_ADD', br.checkin, 1, 'DAY') AND br.checkout) OR (:CHECKIN < br.checkin AND :CHECKOUT > br.checkout))".formatted()
-//        );
-//        query.setParameter("value", "%"+value+"%");
-//        query.setParameter("CHECKIN", IN);
-//        query.setParameter("CHECKOUT", OUT);
-//
-//        return query.getResultList();
 
         LocalDateTime IN = searchRequest.getCheckin();
         LocalDateTime OUT = searchRequest.getCheckout();
@@ -60,6 +50,11 @@ public class RoomServcieImpl implements RoomService {
         query.setParameter("CHECKOUT", OUT);
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Room> sort(List<Room> list) {
+        return null;
     }
 
 }

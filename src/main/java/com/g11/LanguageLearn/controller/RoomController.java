@@ -20,4 +20,6 @@ public class RoomController {
         List<Room> list = roomService.findAvailableRooms(value,searchRequest);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+
 }
