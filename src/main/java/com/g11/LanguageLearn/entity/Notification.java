@@ -1,9 +1,6 @@
 package com.g11.LanguageLearn.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,4 +14,9 @@ public class Notification {
     private String content;
 
     private LocalDateTime dateNotice;
+
+    private String type;
+
+    @ManyToOne
+    private User user;
 }
