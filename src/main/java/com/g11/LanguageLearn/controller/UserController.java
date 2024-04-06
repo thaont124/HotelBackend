@@ -4,6 +4,7 @@ import com.g11.LanguageLearn.dto.request.ChangeCCCDRequest;
 import com.g11.LanguageLearn.dto.request.ChangeEmailRequest;
 import com.g11.LanguageLearn.dto.request.ChangePasswordRequest;
 import com.g11.LanguageLearn.dto.request.ChangeSDTRequest;
+import com.g11.LanguageLearn.dto.response.SaleResponse;
 import com.g11.LanguageLearn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,6 +54,11 @@ public class UserController {
     @GetMapping("/history/point/{id}")
     public ResponseEntity<?> getHistoryPoint(@PathVariable("id") Integer id){
         return new ResponseEntity<>(userService.getHistoryPoint(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/salesmonth/{id}")
+    public ResponseEntity getsales(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(userService.getSales(id),HttpStatus.OK);
     }
 
 }

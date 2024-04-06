@@ -4,8 +4,10 @@ import com.g11.LanguageLearn.dto.request.ChangeCCCDRequest;
 import com.g11.LanguageLearn.dto.request.ChangeEmailRequest;
 import com.g11.LanguageLearn.dto.request.ChangePasswordRequest;
 import com.g11.LanguageLearn.dto.request.ChangeSDTRequest;
+import com.g11.LanguageLearn.dto.response.SaleResponse;
 import com.g11.LanguageLearn.entity.Point;
 import com.g11.LanguageLearn.entity.User;
+import com.g11.LanguageLearn.repository.BookedRoomRepository;
 import com.g11.LanguageLearn.repository.PointRepository;
 import com.g11.LanguageLearn.repository.UserRepository;
 import com.g11.LanguageLearn.service.UserService;
@@ -21,6 +23,8 @@ public class UserServiceImpl implements UserService {
     private PointRepository pointRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    BookedRoomRepository bookedRoomRepository;
     public void updatePassword(Integer id, ChangePasswordRequest request){
         User user = userRepository.getById(id);
         if(!user.getPassword().equals(request.getOldPassword())){
@@ -68,5 +72,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Point> getHistoryPoint(Integer id) {
         return pointRepository.getHistoryPoint(id);
+    }
+
+    @Override
+    public SaleResponse getSales(Integer id) {
+        Float total = bookedRoomRepository.getSales(id);
+        SaleResponse saleResponse = new SaleResponse(total);
+        return saleResponse;
     }
 }

@@ -5,6 +5,7 @@ import com.g11.LanguageLearn.dto.request.ChangeCCCDRequest;
 import com.g11.LanguageLearn.dto.request.ChangeEmailRequest;
 import com.g11.LanguageLearn.dto.request.ChangePasswordRequest;
 import com.g11.LanguageLearn.dto.request.ChangeSDTRequest;
+import com.g11.LanguageLearn.dto.response.SaleResponse;
 import com.g11.LanguageLearn.entity.Point;
 import com.g11.LanguageLearn.entity.User;
 
@@ -23,4 +24,6 @@ public interface UserService {
     public Point getLastPoint(Integer id);
 
     public List<Point> getHistoryPoint(Integer id);
+
+    public SaleResponse getSales(Integer id);
 }
