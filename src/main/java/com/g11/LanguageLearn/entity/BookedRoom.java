@@ -14,20 +14,11 @@ public class BookedRoom {
     private Integer idBookedRoom;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "idUser")
-    private User user;
-    @ManyToOne
     @JoinColumn(name = "room_id", referencedColumnName = "idRoom")
     private Room room;
 
     @ManyToOne
     @JoinColumn(name = "bill_id", referencedColumnName = "idBill")
     private Bill bill;
-
-    private LocalDateTime checkin;
-
-    private LocalDateTime checkout;
-
-    private String statusPayment;
 
 }
