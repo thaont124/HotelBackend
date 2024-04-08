@@ -53,14 +53,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateEmail(Integer id, ChangeEmailRequest changeEmailRequest) {
         User user = userRepository.getById(id);
-        user.setPhoneNumber(changeEmailRequest.getEmail());
+        user.setEmail(changeEmailRequest.getEmail());
         userRepository.save(user);
     }
 
     @Override
     public void updateCCCD(Integer id, ChangeCCCDRequest changeCCCDRequest) {
         User user = userRepository.getById(id);
-        user.setPhoneNumber(changeCCCDRequest.getCccd());
+        user.setCccd(changeCCCDRequest.getCccd());
         userRepository.save(user);
     }
 
