@@ -4,6 +4,7 @@ import com.g11.LanguageLearn.dto.request.ChangeCCCDRequest;
 import com.g11.LanguageLearn.dto.request.ChangeEmailRequest;
 import com.g11.LanguageLearn.dto.request.ChangePasswordRequest;
 import com.g11.LanguageLearn.dto.request.ChangeSDTRequest;
+import com.g11.LanguageLearn.dto.response.ProfileResponse;
 import com.g11.LanguageLearn.dto.response.SaleResponse;
 import com.g11.LanguageLearn.entity.Point;
 import com.g11.LanguageLearn.entity.User;
@@ -41,6 +42,12 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Integer id){
         User user = userRepository.getById(id);
         return user;
+    }
+
+    @Override
+    public ProfileResponse getProfile(Integer id) {
+        User user = userRepository.getById(id);
+        return new ProfileResponse(user);
     }
 
     @Override
