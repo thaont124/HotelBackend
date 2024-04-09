@@ -30,8 +30,8 @@ public class RoomServcieImpl implements RoomService {
                         "AND r.idRoom NOT IN (" +
                         "    SELECT DISTINCT br.room.idRoom " +
                         "    FROM BookedRoom br " +
-                        "    WHERE (br.bill.checkout BETWEEN :CHECKIN AND :CHECKOUT OR br.bill.chekcin BETWEEN :CHECKIN AND :CHECKOUT)" +
-                        "          OR (:CHECKIN < br.bill.chekcin AND :CHECKOUT > br.bill.checkout)" +
+                        "    WHERE (br.bill.checkout BETWEEN :CHECKIN AND :CHECKOUT OR br.bill.checkin BETWEEN :CHECKIN AND :CHECKOUT)" +
+                        "          OR (:CHECKIN < br.bill.checkin AND :CHECKOUT > br.bill.checkout)" +
                         ")"
         );
         query.setParameter("value", "%" + value + "%");
