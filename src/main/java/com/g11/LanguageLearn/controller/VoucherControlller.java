@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.controller;
 
+import com.g11.LanguageLearn.service.ExchangeVoucherService;
 import com.g11.LanguageLearn.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,10 @@ public class VoucherControlller {
     @Autowired
     private VoucherService voucherService;
 
+    @Autowired
+    private  ExchangeVoucherService exchangeVoucherService;
+
+
     @GetMapping("/voucher")
     public ResponseEntity<?> getAllVoucher(){
         return new ResponseEntity<>(voucherService.getAllVoucher(), HttpStatus.OK);
@@ -22,6 +27,6 @@ public class VoucherControlller {
 
     @GetMapping("/voucher/{id}")
     public ResponseEntity<?> getMyVoucher(@PathVariable("id") Integer id){
-        return new ResponseEntity<>(voucherService.getMyVoucher(id),HttpStatus.OK);
+        return new ResponseEntity<>(exchangeVoucherService.getMyVoucher(id),HttpStatus.OK);
     }
 }

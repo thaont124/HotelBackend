@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.service.impl;
 
+import com.g11.LanguageLearn.dto.response.MyVoucherResponse;
 import com.g11.LanguageLearn.entity.ExchangeVoucher;
 import com.g11.LanguageLearn.repository.ExchangeVoucherRepository;
 import com.g11.LanguageLearn.service.ExchangeVoucherService;
@@ -13,7 +14,7 @@ public class ExchangeVoucherServiceImpl implements ExchangeVoucherService {
     @Autowired
     private ExchangeVoucherRepository exchangeVoucherRepository;
     @Override
-    public List<ExchangeVoucher> getByIdUser(Integer idUser) {
+    public List<MyVoucherResponse> getMyVoucher(Integer idUser) {
         return exchangeVoucherRepository.getExchangeVouchersByIdUser(idUser);
     }
 }

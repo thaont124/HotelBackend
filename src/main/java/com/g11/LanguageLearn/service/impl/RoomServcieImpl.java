@@ -8,6 +8,7 @@ import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 @Service
@@ -16,25 +17,12 @@ public class RoomServcieImpl implements RoomService {
     @Autowired
     private EntityManager entityManager;
 
-//    @Override
-//    public List<Room> findAvailableRooms(String value,SearchRequest searchRequest) {
-//        LocalDateTime CHECKIN = searchRequest.getCheckin();
-//        LocalDateTime CHECKOUT = searchRequest.getCheckout();
-//        Query query = entityManager.createQuery(
-//                "SELECT r FROM Room r WHERE (r.branch.hotel.nameHotel like :value or r.branch.address like :value) and (  r.idRoom NOT IN (SELECT DISTINCT br.room.idRoom FROM BookedRoom br WHERE (:CHECKIN BETWEEN br.checkin AND DATE_SUB(br.checkout, INTERVAL 1 DAY) OR :CHECKOUT BETWEEN DATE_ADD(br.checkin, INTERVAL 1 DAY) AND br.checkout) OR (:CHECKIN < br.checkin AND :CHECKOUT > br.checkout))".formatted()
-//        );
-//        query.setParameter("CHECKIN", CHECKIN);
-//        query.setParameter("CHECKOUT", CHECKOUT);
-//        query.setParameter("value", value);
-//        return query.getResultList();
-//    }
-
 
     @Override
     public List<Room> findAvailableRooms(String value,SearchRequest searchRequest) {
 
-        LocalDateTime IN = searchRequest.getCheckin();
-        LocalDateTime OUT = searchRequest.getCheckout();
+        LocalDate IN = LocalDate.parse(searchRequest.getCheckin());
+        LocalDate OUT = LocalDate.parse(searchRequest.getCheckout());
         Query query = entityManager.createQuery(
                 "SELECT b.hotel.nameHotel, b.address.district, b.address.city, b.address.province FROM Branch b " +
                         "JOIN Room r ON r.branch.idBranch = b.idBranch " +
@@ -42,8 +30,8 @@ public class RoomServcieImpl implements RoomService {
                         "AND r.idRoom NOT IN (" +
                         "    SELECT DISTINCT br.room.idRoom " +
                         "    FROM BookedRoom br " +
-                        "    WHERE (br.bill.checkout BETWEEN :CHECKIN AND :CHECKOUT OR br.bill.checkin BETWEEN :CHECKIN AND :CHECKOUT)" +
-                        "          OR (:CHECKIN < br.bill.checkin AND :CHECKOUT > br.bill.checkout)" +
+                        "    WHERE (br.bill.checkout BETWEEN :CHECKIN AND :CHECKOUT OR br.bill.chekcin BETWEEN :CHECKIN AND :CHECKOUT)" +
+                        "          OR (:CHECKIN < br.bill.chekcin AND :CHECKOUT > br.bill.checkout)" +
                         ")"
         );
         query.setParameter("value", "%" + value + "%");
