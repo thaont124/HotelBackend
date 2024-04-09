@@ -27,4 +27,12 @@ public class BaseException extends RuntimeException {
     }
     params.put(key, value);
   }
+
+  public BaseException(int status, String code, String message) {
+    this.status = status;
+    this.code = code;
+    this.message = message;
+    this.params = new HashMap<>();
+  }
+
 }
