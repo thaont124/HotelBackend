@@ -25,7 +25,7 @@ public class Bill {
 
     private Integer status;
 
-    private LocalDate chekcin;
+    private LocalDate checkin;
 
     private LocalDate checkout;
 
