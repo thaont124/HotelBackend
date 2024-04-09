@@ -19,10 +19,10 @@ public class RoomServcieImpl implements RoomService {
 
 
     @Override
-    public List<Room> findAvailableRooms(String value,SearchRequest searchRequest) {
+    public List<Room> findAvailableRooms(String value,String checkin,String checkout) {
 
-        LocalDate IN = LocalDate.parse(searchRequest.getCheckin());
-        LocalDate OUT = LocalDate.parse(searchRequest.getCheckout());
+        LocalDate IN = LocalDate.parse(checkin);
+        LocalDate OUT = LocalDate.parse(checkout);
         Query query = entityManager.createQuery(
                 "SELECT b.hotel.nameHotel, b.address.district, b.address.city, b.address.province FROM Branch b " +
                         "JOIN Room r ON r.branch.idBranch = b.idBranch " +
