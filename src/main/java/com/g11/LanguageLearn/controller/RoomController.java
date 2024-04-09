@@ -1,6 +1,7 @@
 package com.g11.LanguageLearn.controller;
 
 import com.g11.LanguageLearn.dto.request.SearchRequest;
+import com.g11.LanguageLearn.dto.response.SearchResponse;
 import com.g11.LanguageLearn.entity.Room;
 import com.g11.LanguageLearn.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class RoomController {
     private RoomService roomService;
     @GetMapping ("/search/{value}")
     public ResponseEntity<?> getRoomSearch(@PathVariable("value") String value,@RequestParam("checkin") String checkin,@RequestParam("checkout") String checkout){
-        List<Room> list = roomService.findAvailableRooms(value,checkin,checkout);
+        List<SearchResponse> list = roomService.findAvailableRooms(value,checkin,checkout);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

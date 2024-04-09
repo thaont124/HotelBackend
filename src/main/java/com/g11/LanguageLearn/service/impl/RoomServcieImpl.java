@@ -1,6 +1,7 @@
 package com.g11.LanguageLearn.service.impl;
 
 import com.g11.LanguageLearn.dto.request.SearchRequest;
+import com.g11.LanguageLearn.dto.response.SearchResponse;
 import com.g11.LanguageLearn.entity.Room;
 import com.g11.LanguageLearn.service.RoomService;
 import jakarta.persistence.EntityManager;
@@ -19,12 +20,12 @@ public class RoomServcieImpl implements RoomService {
 
 
     @Override
-    public List<Room> findAvailableRooms(String value,String checkin,String checkout) {
+    public List<SearchResponse> findAvailableRooms(String value, String checkin, String checkout) {
 
         LocalDate IN = LocalDate.parse(checkin);
         LocalDate OUT = LocalDate.parse(checkout);
         Query query = entityManager.createQuery(
-                "SELECT b.hotel.nameHotel, b.address.district, b.address.city, b.address.province FROM Branch b " +
+                "SELECT b.idBranch, b.hotel.nameHotel, b.address.district, b.address.city, b.address.province, r.pricePerDay  FROM Branch b " +
                         "JOIN Room r ON r.branch.idBranch = b.idBranch " +
                         "WHERE (b.hotel.nameHotel LIKE :value) " +
                         "AND r.idRoom NOT IN (" +
@@ -41,9 +42,6 @@ public class RoomServcieImpl implements RoomService {
         return query.getResultList();
     }
 
-    @Override
-    public List<Room> sort(List<Room> list) {
-        return null;
-    }
+
 
 }
