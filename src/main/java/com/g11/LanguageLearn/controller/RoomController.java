@@ -15,8 +15,8 @@ import java.util.List;
 public class RoomController {
     @Autowired
     private RoomService roomService;
-    @GetMapping ("/search/{value}?checkin={checkin}?chekcout={checkout}")
-    public ResponseEntity<?> getRoomSearch(@PathVariable("value") String value,@PathVariable("checkin") String checkin,@PathVariable("checkout") String checkout){
+    @GetMapping ("/search/{value}")
+    public ResponseEntity<?> getRoomSearch(@PathVariable("value") String value,@RequestParam("checkin") String checkin,@RequestParam("checkout") String checkout){
         List<Room> list = roomService.findAvailableRooms(value,checkin,checkout);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
