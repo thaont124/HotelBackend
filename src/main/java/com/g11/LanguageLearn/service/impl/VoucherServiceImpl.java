@@ -33,10 +33,6 @@ public class VoucherServiceImpl implements VoucherService {
         return voucherRepository.findAll();
     }
 
-    @Override
-    public List<ExchangeVoucher> getMyVoucher(Integer id) {
-        return voucherRepository.getMyVoucher(id);
-    }
 
     @Override
     public void exchangeVoucher(Integer idUser, Integer idVoucher) throws BadRequestException {
