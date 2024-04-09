@@ -24,9 +24,6 @@ public class BookedRoom {
     @JoinColumn(name = "bill_id", referencedColumnName = "idBill")
     private Bill bill;
 
-    private LocalDateTime checkin;
-
-    private LocalDateTime checkout;
 
     private String statusPayment;
 

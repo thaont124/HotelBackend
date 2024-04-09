@@ -6,6 +6,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class SearchRequest {
-    private LocalDateTime checkin;
-    private LocalDateTime checkout;
+    private String checkin;
+    private String checkout;
 }

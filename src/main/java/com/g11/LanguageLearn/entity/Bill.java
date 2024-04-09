@@ -3,6 +3,7 @@ package com.g11.LanguageLearn.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 @Data
 @Entity
@@ -16,6 +17,10 @@ public class Bill {
     private Float vat;
 
     private Integer status;
+
+    private LocalDate chekcin;
+
+    private LocalDate checkout;
 
 
 }
