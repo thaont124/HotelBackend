@@ -4,6 +4,7 @@ import com.g11.LanguageLearn.dto.request.ChangeCCCDRequest;
 import com.g11.LanguageLearn.dto.request.ChangeEmailRequest;
 import com.g11.LanguageLearn.dto.request.ChangePasswordRequest;
 import com.g11.LanguageLearn.dto.request.ChangeSDTRequest;
+import com.g11.LanguageLearn.dto.response.ProfileResponse;
 import com.g11.LanguageLearn.dto.response.SaleResponse;
 import com.g11.LanguageLearn.entity.Point;
 import com.g11.LanguageLearn.entity.User;
@@ -44,6 +45,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ProfileResponse getProfile(Integer id) {
+        User user = userRepository.getById(id);
+        return new ProfileResponse(user);
+    }
+
+    @Override
     public void updateSDT(Integer id, ChangeSDTRequest changeSDTRequest) {
         User user = userRepository.getById(id);
         user.setPhoneNumber(changeSDTRequest.getSdt());
@@ -53,14 +60,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateEmail(Integer id, ChangeEmailRequest changeEmailRequest) {
         User user = userRepository.getById(id);
-        user.setPhoneNumber(changeEmailRequest.getEmail());
+        user.setEmail(changeEmailRequest.getEmail());
         userRepository.save(user);
     }
 
     @Override
     public void updateCCCD(Integer id, ChangeCCCDRequest changeCCCDRequest) {
         User user = userRepository.getById(id);
-        user.setPhoneNumber(changeCCCDRequest.getCccd());
+        user.setCccd(changeCCCDRequest.getCccd());
         userRepository.save(user);
     }
 

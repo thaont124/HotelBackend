@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/apiv1/")
+@RequestMapping("/apiv1")
 public class ExchangeVoucherController {
     @Autowired
     private  ExchangeVoucherService exchangeVoucherService;
     @Autowired
     private VoucherService voucherService;
-    @PatchMapping("exchangevoucher/{idUser}/{idVoucher}")
+    @PatchMapping("/exchangevoucher/{idUser}/{idVoucher}")
     public ResponseEntity<?> exchangeVoucher(@PathVariable("idUser") Integer idUser,@PathVariable("idVoucher") Integer idVoucher) throws BadRequestException {
          voucherService.exchangeVoucher(idUser,idVoucher);
          return new ResponseEntity<>(HttpStatus.OK);

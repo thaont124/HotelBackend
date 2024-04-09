@@ -24,8 +24,9 @@ public class RoomServcieImpl implements RoomService {
         LocalDate IN = LocalDate.parse(searchRequest.getCheckin());
         LocalDate OUT = LocalDate.parse(searchRequest.getCheckout());
         Query query = entityManager.createQuery(
-                "SELECT r FROM Room r " +
-                        "WHERE (r.branch.hotel.nameHotel LIKE :value) " +
+                "SELECT b.hotel.nameHotel, b.address.district, b.address.city, b.address.province FROM Branch b " +
+                        "JOIN Room r ON r.branch.idBranch = b.idBranch " +
+                        "WHERE (b.hotel.nameHotel LIKE :value) " +
                         "AND r.idRoom NOT IN (" +
                         "    SELECT DISTINCT br.room.idRoom " +
                         "    FROM BookedRoom br " +

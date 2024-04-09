@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/apiv1/")
+@RequestMapping("/apiv1")
 public class RoomController {
     @Autowired
     private RoomService roomService;

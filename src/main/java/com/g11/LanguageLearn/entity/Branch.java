@@ -17,4 +17,6 @@ public class Branch {
     @ManyToOne
     @JoinColumn(name = "hotel_id", referencedColumnName = "idHotel")
     private Hotel hotel;
+
+    private Integer rate;
 }

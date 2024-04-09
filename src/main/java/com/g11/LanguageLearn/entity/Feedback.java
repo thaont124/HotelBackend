@@ -19,4 +19,5 @@ public class Feedback {
     @OneToOne
     @JoinColumn(name = "bill_id", referencedColumnName = "idBill")
     private Bill bill;
+
 }

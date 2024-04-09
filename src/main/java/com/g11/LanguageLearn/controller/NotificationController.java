@@ -19,8 +19,8 @@ public class NotificationController {
         return new ResponseEntity<>(notificationService.getAllNoticationByUser(idUser), HttpStatus.OK);
     }
 
-//    @GetMapping("/detail/{idNotification}")
-//    public ResponseEntity<?> getDetail(@PathVariable("idNotification") Integer idNotification){
-//
-//    }
+    @GetMapping("/detail/{idNotification}")
+    public ResponseEntity<?> getDetail(@PathVariable("idNotification") Integer idNotification){
+        return new ResponseEntity<>(notificationService.getDetailBill(idNotification), HttpStatus.OK);
+    }
 }

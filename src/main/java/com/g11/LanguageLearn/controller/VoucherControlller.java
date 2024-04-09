@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/apiv1/")
+@RequestMapping("/apiv1")
 @RestController
 public class VoucherControlller {
     @Autowired

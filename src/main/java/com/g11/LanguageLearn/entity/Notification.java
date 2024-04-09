@@ -19,4 +19,8 @@ public class Notification {
 
     @ManyToOne
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 }
