@@ -1,10 +1,14 @@
 package com.g11.LanguageLearn.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class NotificationSetting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +20,7 @@ public class NotificationSetting {
 
     private Integer noticePoint; //chi co 0 va 1
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 }
