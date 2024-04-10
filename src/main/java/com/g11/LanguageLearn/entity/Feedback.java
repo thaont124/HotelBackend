@@ -23,5 +23,4 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name = "branch_id", referencedColumnName = "idBranch")
     private Branch branch;
-
 }
