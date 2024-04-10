@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.service.impl;
 
+import com.g11.LanguageLearn.dto.request.SettingUpdateRequest;
 import com.g11.LanguageLearn.dto.response.*;
 import com.g11.LanguageLearn.entity.*;
 import com.g11.LanguageLearn.exception.base.BadRequestException;
@@ -89,5 +90,17 @@ public class NotificationServiceImpl implements NotificationService {
                 setting.getTimeBeforeCheckin(), setting.getNoticePoint());
         return settingResponse;
 
+    }
+
+    @Override
+    public SettingResponse updateSetting(Integer idUser, SettingUpdateRequest request) {
+        NotificationSetting setting = notificationSettingRepository.getNotificationSettingByUserId(idUser);
+        setting.setNoticeCheckin(request.getNoticeCheckin());
+        setting.setTimeBeforeCheckin(request.getTimeBeforeCheckin());
+        setting.setNoticePoint(request.getNoticePoint());
+        NotificationSetting savedSetting = notificationSettingRepository.save(setting);
+        SettingResponse settingResponse = new SettingResponse(savedSetting.getNoticeCheckin(),
+                savedSetting.getTimeBeforeCheckin(), savedSetting.getNoticePoint());
+        return settingResponse;
     }
 }

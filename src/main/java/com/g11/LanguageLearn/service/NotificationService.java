@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.service;
 
+import com.g11.LanguageLearn.dto.request.SettingUpdateRequest;
 import com.g11.LanguageLearn.dto.response.BillResponse;
 import com.g11.LanguageLearn.dto.response.NotificationResponse;
 import com.g11.LanguageLearn.dto.response.SettingResponse;
@@ -12,4 +13,6 @@ public interface NotificationService {
     BillResponse getDetailBill(Integer idNotification);
 
     SettingResponse getSetting(Integer idUser);
+
+    SettingResponse updateSetting(Integer idUser, SettingUpdateRequest request);
 }
