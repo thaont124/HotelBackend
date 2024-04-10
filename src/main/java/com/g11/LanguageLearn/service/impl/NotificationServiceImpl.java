@@ -82,6 +82,9 @@ public class NotificationServiceImpl implements NotificationService {
             throw new BaseException(404, "NOT_FOUND", "User is unavailable");
         }
         NotificationSetting setting = notificationSettingRepository.getNotificationSettingByUserId(idUser);
+        if (setting == null){
+            throw new BaseException(400, "BAD_REQUEST", "No setting");
+        }
         SettingResponse settingResponse = new SettingResponse(setting.getNoticeCheckin(),
                 setting.getTimeBeforeCheckin(), setting.getNoticePoint());
         return settingResponse;
