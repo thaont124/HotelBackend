@@ -20,4 +20,8 @@ public class Feedback {
     @JoinColumn(name = "bill_id", referencedColumnName = "idBill")
     private Bill bill;
 
+    @ManyToOne
+    @JoinColumn(name = "branch_id", referencedColumnName = "idBranch")
+    private Branch branch;
+
 }
