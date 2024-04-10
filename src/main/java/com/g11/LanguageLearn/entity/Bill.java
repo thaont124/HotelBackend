@@ -3,7 +3,10 @@ package com.g11.LanguageLearn.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.List;
 @Data
 @Entity
@@ -22,13 +25,13 @@ public class Bill {
 
     private Integer status;
 
+    private LocalDate checkin;
+
+    private LocalDate checkout;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "idUser")
     private User user;
-
-    private LocalDateTime checkin;
-
-    private LocalDateTime checkout;
 
     public String getStatusString(){
         return this.status == 1 ? "Đã thanh toán" : "Chưa thanh toán";

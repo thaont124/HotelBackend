@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 public interface RoomService {
-    public List<Room> findAvailableRooms(String value,SearchRequest searchRequest);
+    public List<Room> findAvailableRooms(String value,String checkin, String checkout);
 
     public List<Room> sort(List<Room> list);
 }

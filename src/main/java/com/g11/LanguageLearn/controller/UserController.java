@@ -5,6 +5,8 @@ import com.g11.LanguageLearn.dto.request.ChangeEmailRequest;
 import com.g11.LanguageLearn.dto.request.ChangePasswordRequest;
 import com.g11.LanguageLearn.dto.request.ChangeSDTRequest;
 import com.g11.LanguageLearn.dto.response.SaleResponse;
+import com.g11.LanguageLearn.entity.Point;
+import com.g11.LanguageLearn.entity.User;
 import com.g11.LanguageLearn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,20 +14,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/apiv1/")
+@RequestMapping("/apiv1")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @PatchMapping("patch/password/{id}")
+    @PatchMapping("/patch/password/{id}")
     public ResponseEntity<?> updatePassword(@PathVariable("id") Integer id, @RequestBody ChangePasswordRequest changePasswordRequest){
         userService.updatePassword(id,changePasswordRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/profile/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable("id") Integer id){
-        return new ResponseEntity<>(userService.getUserById(id),HttpStatus.OK);
+    public ResponseEntity<?> getProfile(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(userService.getProfile(id), HttpStatus.OK);
     }
 
     @PatchMapping("/patch/phonenumber/{id}")
@@ -48,7 +50,8 @@ public class UserController {
 
     @GetMapping("/point/{id}")
     public ResponseEntity<?> getLastPoint(@PathVariable("id") Integer id){
-        return new ResponseEntity<>(userService.getLastPoint(id),HttpStatus.OK);
+        Point point = userService.getLastPoint(id);
+        return new ResponseEntity<>(point,HttpStatus.OK);
     }
 
     @GetMapping("/history/point/{id}")

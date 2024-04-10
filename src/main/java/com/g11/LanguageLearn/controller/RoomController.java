@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/apiv1/")
+@RequestMapping("/apiv1")
 public class RoomController {
     @Autowired
     private RoomService roomService;
-    @GetMapping("/search/{value}")
-    public ResponseEntity<?> getRoomSearch(@PathVariable("value") String value, @RequestBody SearchRequest searchRequest){
-        List<Room> list = roomService.findAvailableRooms(value,searchRequest);
+    @GetMapping ("/search/{value}")
+    public ResponseEntity<?> getRoomSearch(@PathVariable("value") String value,@RequestParam("checkin") String checkin,@RequestParam("checkout") String checkout){
+        List<Room> list = roomService.findAvailableRooms(value,checkin,checkout);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

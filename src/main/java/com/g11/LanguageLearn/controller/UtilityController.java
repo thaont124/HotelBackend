@@ -21,6 +21,7 @@ public class UtilityController {
 
     @GetMapping("getList/{idTypeRoom}")
     public ResponseEntity<?> getList(@PathVariable("idTypeRoom") Integer idTypeRoom){
+        System.out.println("idTypeRoom " + idTypeRoom);
         List<UtilityResponse> list = utilityService.getList(idTypeRoom);
         return new ResponseEntity<>(list, HttpStatus.OK);
 

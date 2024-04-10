@@ -20,5 +20,5 @@ public class BookedRoom {
     @ManyToOne
     @JoinColumn(name = "bill_id", referencedColumnName = "idBill")
     private Bill bill;
-
+    private String statusPayment;
 }

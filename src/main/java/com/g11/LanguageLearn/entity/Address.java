@@ -21,4 +21,8 @@ public class Address {
     @OneToOne
     @JoinColumn(name = "coordination_id", referencedColumnName = "idCoordination")
     private Coordination coordination;
+
+    public String getFullAddress(){
+        return numberHouse + " " + district + ", " + city + ", " + province;
+    }
 }
