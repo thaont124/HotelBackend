@@ -29,7 +29,7 @@ public class UtilityServiceImpl implements UtilityService {
         List<UtilityResponse> result = new ArrayList<>();
         for (Utility utility : utilities){
             UtilityResponse utilityResponse = new UtilityResponse();
-            utilityResponse.setName(utilityResponse.getName());
+            utilityResponse.setName(utility.getNameUtility());
 
             result.add(utilityResponse);
         }
