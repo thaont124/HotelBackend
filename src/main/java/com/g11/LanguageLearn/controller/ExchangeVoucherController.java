@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.controller;
 
+import com.g11.LanguageLearn.dto.request.ExchangeVoucherRequest;
 import com.g11.LanguageLearn.service.ExchangeVoucherService;
 import com.g11.LanguageLearn.service.VoucherService;
 import org.apache.coyote.BadRequestException;
@@ -15,9 +16,9 @@ public class ExchangeVoucherController {
     private  ExchangeVoucherService exchangeVoucherService;
     @Autowired
     private VoucherService voucherService;
-    @PatchMapping("/exchangevoucher/{idUser}/{idVoucher}")
-    public ResponseEntity<?> exchangeVoucher(@PathVariable("idUser") Integer idUser,@PathVariable("idVoucher") Integer idVoucher) throws BadRequestException {
-         voucherService.exchangeVoucher(idUser,idVoucher);
+    @PostMapping("/exchangevoucher/{idUser}")
+    public ResponseEntity<?> exchangeVoucher(@PathVariable("idUser") Integer idUser, @RequestBody ExchangeVoucherRequest exchangeVoucherRequest) {
+         voucherService.exchangeVoucher(idUser,exchangeVoucherRequest);
          return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -66,7 +66,6 @@ public class NotificationServiceImpl implements NotificationService {
             roomsResponse.add(new BookedRoomResponse(bookedRoom.getRoom().getRoomNumber(),
                     bookedRoom.getRoom().getTypeRoom().getNameTypeRoom(),
                     bookedRoom.getRoom().getBranch().getHotel().getNameHotel(),
-                    bookedRoom.getRoom().getPricePerHour().toString(),
                     bookedRoom.getRoom().getPricePerDay().toString()));
         }
 
