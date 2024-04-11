@@ -33,4 +33,9 @@ public class HotelController {
     public ResponseEntity<?> getAddressByBranchId(@PathVariable("idBranch") Integer idBranch){
         return new ResponseEntity<>(addressService.getAddressByIdBranch(idBranch), HttpStatus.OK);
     }
+
+    @GetMapping("/detail/{idBranch}")
+    public ResponseEntity<?> getDetailByBranchId(@PathVariable("idBranch") Integer idBranch){
+        return new ResponseEntity<>(hotelService.getDetailByBranchId(idBranch), HttpStatus.OK);
+    }
 }
