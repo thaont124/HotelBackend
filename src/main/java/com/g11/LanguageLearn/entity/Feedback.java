@@ -12,8 +12,6 @@ public class Feedback {
 
     private Integer rate;
 
-    private String imgFeedback;
-
     private String content;
 
     @OneToOne

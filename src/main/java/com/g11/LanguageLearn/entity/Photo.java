@@ -1,19 +1,24 @@
 package com.g11.LanguageLearn.entity;
 
-
-import jakarta.persistence.*;
-import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
-@Data
+import lombok.NoArgsConstructor;
+
 @Entity
-public class Suggestion {
+@Data
+@NoArgsConstructor
+public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idSuggestion;
+    private Integer idPhoto;
+    private String uri;
+    private String type;
 
-    private String nameSuggestion;
+    public Photo(String uri, String type) {
+        this.uri = uri;
+        this.type = type;
+    }
 }

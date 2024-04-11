@@ -3,6 +3,7 @@ package com.g11.LanguageLearn.controller;
 import com.g11.LanguageLearn.dto.request.CreateFeedbackRequest;
 import com.g11.LanguageLearn.dto.response.FeedbackResponse;
 import com.g11.LanguageLearn.service.FeedbackService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class FeedbackController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     @PostMapping("create")
-    public ResponseEntity<?> createFeedback(@RequestBody CreateFeedbackRequest request){
+    public ResponseEntity<?> createFeedback(@ModelAttribute @Valid CreateFeedbackRequest request){
         FeedbackResponse response = feedbackService.createFeedback(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

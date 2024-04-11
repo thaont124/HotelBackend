@@ -9,6 +9,5 @@ public class BookedRoomResponse {
     private String numberRoom;
     private String typeRoom;
     private String hotelName;
-    private String  pricePerHour;
     private String pricePerDay;
 }

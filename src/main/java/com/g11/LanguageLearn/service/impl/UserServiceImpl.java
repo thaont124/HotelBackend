@@ -1,22 +1,23 @@
 package com.g11.LanguageLearn.service.impl;
 
-import com.g11.LanguageLearn.dto.request.ChangeCCCDRequest;
-import com.g11.LanguageLearn.dto.request.ChangeEmailRequest;
-import com.g11.LanguageLearn.dto.request.ChangePasswordRequest;
-import com.g11.LanguageLearn.dto.request.ChangeSDTRequest;
+import com.g11.LanguageLearn.dto.request.*;
+import com.g11.LanguageLearn.dto.response.LoginResponse;
 import com.g11.LanguageLearn.dto.response.ProfileResponse;
 import com.g11.LanguageLearn.dto.response.SaleResponse;
 import com.g11.LanguageLearn.entity.Point;
 import com.g11.LanguageLearn.entity.User;
+import com.g11.LanguageLearn.exception.base.BaseException;
 import com.g11.LanguageLearn.repository.BookedRoomRepository;
 import com.g11.LanguageLearn.repository.PointRepository;
 import com.g11.LanguageLearn.repository.UserRepository;
 import com.g11.LanguageLearn.service.UserService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -86,5 +87,53 @@ public class UserServiceImpl implements UserService {
         Float total = bookedRoomRepository.getSales(id);
         SaleResponse saleResponse = new SaleResponse(total);
         return saleResponse;
+    }
+
+
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public int addUser(RegistrationRequest registrationRequest){
+        User user = new User(
+                registrationRequest.getUsername(),
+                this.passwordEncoder.encode(registrationRequest.getPassword()),
+                registrationRequest.getEmail(),
+                registrationRequest.getFirstName(),
+                registrationRequest.getMiddleName(),
+                registrationRequest.getLastName(),
+                registrationRequest.getCccd(),
+                registrationRequest.getPhoneNumber()
+
+
+        );
+        User savedUser = userRepository.save(user);
+        return savedUser.getIdUser();
+    }
+
+    @Override
+    public LoginResponse loginUser(LoginRequest loginRequest) {
+        String msg = "";
+        User user1 = userRepository.findByUsername(loginRequest.getUsername());
+        if (user1 != null) {
+            String password = loginRequest.getPassword();
+            String encodedPassword = user1.getPassword();
+            Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
+            if (isPwdRight) {
+                Optional<User> user = userRepository.findOneByUsernameAndPassword(loginRequest.getUsername(), encodedPassword);
+
+                if (user.isPresent()) {
+                    int idUser = user.get().getIdUser();
+                    return new LoginResponse(idUser, "Login Success");
+                } else {
+                    throw new BaseException(500,"INTERNAL_SERVER_ERROR", "Login Failed");
+                }
+            } else {
+                throw new BaseException(400, "BadRequest","Password Not Match");
+            }
+        } else {
+            throw new BaseException(404,"NotFound", "Username not exist");
+        }
     }
 }
