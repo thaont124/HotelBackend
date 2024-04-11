@@ -1,6 +1,7 @@
 package com.g11.LanguageLearn.service.impl;
 
 import com.g11.LanguageLearn.dto.request.SearchRequest;
+import com.g11.LanguageLearn.dto.response.RoomResponse;
 import com.g11.LanguageLearn.dto.response.SearchResponse;
 import com.g11.LanguageLearn.entity.Room;
 import com.g11.LanguageLearn.service.RoomService;
@@ -42,6 +43,26 @@ public class RoomServcieImpl implements RoomService {
         return query.getResultList();
     }
 
+    @Override
+    public List<RoomResponse> getRoom(Integer id, String checkin, String checkout, String value) {
+        LocalDate IN = LocalDate.parse(checkin);
+        LocalDate OUT = LocalDate.parse(checkout);
+        Query query = entityManager.createQuery(
+                "SELECT r FROM Room r" +
+                        " WHERE ( r.branch.hotel.nameHotel LIKE :value )" +
+                        "AND r.idRoom NOT IN (" +
+                        "    SELECT DISTINCT br.room.idRoom " +
+                        "    FROM BookedRoom br " +
+                        "    WHERE (br.bill.checkout BETWEEN :CHECKIN AND :CHECKOUT OR br.bill.checkin BETWEEN :CHECKIN AND :CHECKOUT)" +
+                        "          OR (:CHECKIN < br.bill.checkin AND :CHECKOUT > br.bill.checkout)" +
+                        ")"
+        );
+        query.setParameter("value", "%" + value + "%");
+        query.setParameter("CHECKIN", IN);
+        query.setParameter("CHECKOUT", OUT);
+
+        return query.getResultList();
+    }
 
 
 }
