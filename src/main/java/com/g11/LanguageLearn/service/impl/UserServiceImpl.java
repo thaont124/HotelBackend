@@ -6,6 +6,7 @@ import com.g11.LanguageLearn.dto.response.ProfileResponse;
 import com.g11.LanguageLearn.dto.response.SaleResponse;
 import com.g11.LanguageLearn.entity.Point;
 import com.g11.LanguageLearn.entity.User;
+import com.g11.LanguageLearn.exception.base.BaseException;
 import com.g11.LanguageLearn.repository.BookedRoomRepository;
 import com.g11.LanguageLearn.repository.PointRepository;
 import com.g11.LanguageLearn.repository.UserRepository;
@@ -112,28 +113,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginResponse loginUser(LoginRequest loginRequest){
+    public LoginResponse loginUser(LoginRequest loginRequest) {
         String msg = "";
         User user1 = userRepository.findByUsername(loginRequest.getUsername());
-        if (user1 != null){
+        if (user1 != null) {
             String password = loginRequest.getPassword();
             String encodedPassword = user1.getPassword();
             Boolean isPwdRight = passwordEncoder.matches(password, encodedPassword);
-            if(isPwdRight){
+            if (isPwdRight) {
                 Optional<User> user = userRepository.findOneByUsernameAndPassword(loginRequest.getUsername(), encodedPassword);
-                if(user.isPresent()){
-                    return new LoginResponse("Login Success", true);
-                }else{
-                    return new LoginResponse("Login Failed", false);
-
+                if (user.isPresent()) {
+                    int idUser = user.get().getIdUser();
+                    return new LoginResponse(idUser, "Login Success");
+                } else {
+                    throw new BaseException(500,"INTERNAL_SERVER_ERROR", "Login Failed");
                 }
-            }else{
-                return new LoginResponse("Password Not Match", false);
+            } else {
+                throw new BaseException(400, "BadRequest","Password Not Match");
             }
-
-        }else{
-            return new LoginResponse("Username not exist", false);
+        } else {
+            throw new BaseException(404,"NotFound", "Username not exist");
         }
     }
 }
-
