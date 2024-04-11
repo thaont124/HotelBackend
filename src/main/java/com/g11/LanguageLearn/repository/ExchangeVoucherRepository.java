@@ -12,6 +12,6 @@ import java.util.Objects;
 
 @Repository
 public interface ExchangeVoucherRepository extends JpaRepository<ExchangeVoucher,Integer> {
-    @Query("select e.idExchangeVoucher,e.voucher.nameVoucher,e.voucher.pointVoucher,e.voucher.priceVoucher,e.statusVoucher from ExchangeVoucher e where e.user.idUser =:id order by e.idExchangeVoucher DESC")
-    List<MyVoucherResponse> getExchangeVouchersByIdUser(@Param("id") Integer id);
+//    @Query("select e.idExchangeVoucher,e.voucher.nameVoucher,e.voucher.pointVoucher,e.voucher.priceVoucher,e.statusVoucher from ExchangeVoucher e where e.user.idUser =:id order by e.idExchangeVoucher DESC")
+//    List<MyVoucherResponse> getExchangeVouchersByIdUser(@Param("id") Integer id);
 }
