@@ -36,10 +36,11 @@ public class VoucherServiceImpl implements VoucherService {
 
 
     @Override
-    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest) {
+    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest)  {
         User user = userRepository.findById(idUser).get();
         Voucher voucher = voucherRepository.getById(exchangeVoucherRequest.getId());
         Integer point = pointRepository.getLastPoint(idUser).getPoint();
+
         ExchangeVoucher exchangeVoucher = new ExchangeVoucher();
         exchangeVoucher.setUser(user);
         exchangeVoucher.setVoucher(voucher);
