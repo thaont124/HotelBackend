@@ -203,7 +203,7 @@ public class StorageServiceImpl implements StorageService {
     public Resource loadAsResource(String filename) {
         try {
             Path file = load(filename);
-            Resource resource = new UrlResource(file.toUri());
+                Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             }
