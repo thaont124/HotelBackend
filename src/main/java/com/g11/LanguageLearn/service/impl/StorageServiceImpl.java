@@ -8,9 +8,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.stream.Stream;
 
 import com.g11.LanguageLearn.entity.PhotoFeedback;
+import com.g11.LanguageLearn.entity.PhotoHotel;
+import com.g11.LanguageLearn.entity.PhotoRoom;
 import com.g11.LanguageLearn.exception.base.BaseException;
 import com.g11.LanguageLearn.property.StorageProperties;
 import com.g11.LanguageLearn.repository.PhotoFeedbackRepository;
@@ -18,6 +19,10 @@ import com.g11.LanguageLearn.repository.PhotoHotelRepository;
 import com.g11.LanguageLearn.repository.PhotoRoomRepository;
 import com.g11.LanguageLearn.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,15 +43,22 @@ public class StorageServiceImpl implements StorageService {
     private PhotoHotelRepository photoHotelRepository;
     @Autowired
     private PhotoRoomRepository photoRoomRepository;
+    @Value("${domain}")
+    private String domain;
 
     @Autowired
     public StorageServiceImpl(StorageProperties properties) {
 
-        if(properties.getLocation().trim().length() == 0){
+        if(properties.getLocation().trim().isEmpty()){
             throw new BaseException(500, "INTERNAL_SERVER_ERROR", "File upload location can not be Empty.");
         }
 
         this.rootLocation = Paths.get(properties.getLocation());
+    }
+
+    @Override
+    public Path load(String filename) {
+        return rootLocation.resolve(filename);
     }
 
     @Override
@@ -92,6 +104,7 @@ public class StorageServiceImpl implements StorageService {
         }
     }
 
+    @Override
     public String formatFileURL(MultipartFile file) {
         try {
             if (file.isEmpty()) {
@@ -114,6 +127,8 @@ public class StorageServiceImpl implements StorageService {
             throw new BaseException(500, "INTERNAL_SERVER_ERROR", "Failed to format fileURL.\n" + e);
         }
     }
+
+    @Override
     public Path getUniqueDestinationFile(Path destinationFile) {
         Path uniquePath = destinationFile;
         int count = 1;
@@ -128,6 +143,8 @@ public class StorageServiceImpl implements StorageService {
         }
         return uniquePath;
     }
+
+    @Override
     public boolean isVideo(MultipartFile file) {
         Tika tika = new Tika();
 
@@ -141,6 +158,7 @@ public class StorageServiceImpl implements StorageService {
         }
     }
 
+    @Override
     public boolean isImage(MultipartFile file) {
         try (InputStream inputStream = file.getInputStream()) {
 
@@ -162,5 +180,42 @@ public class StorageServiceImpl implements StorageService {
     public PhotoFeedback savePhotoFeedback(PhotoFeedback photo) {
         PhotoFeedback savedPhoto = photoFeedbackRepository.save(photo);
         return savedPhoto;
+    }
+
+    @Override
+    public PhotoRoom savePhotoRoom(PhotoRoom photo) {
+        PhotoRoom savedPhoto = photoRoomRepository.save(photo);
+        return savedPhoto;
+    }
+
+    @Override
+    public PhotoHotel savePhotoHotel(PhotoHotel photo) {
+        PhotoHotel savedPhoto = photoHotelRepository.save(photo);
+        return savedPhoto;
+    }
+
+    @Override
+    public String getPhotoURL(String fileName) {
+        return "https://" + domain + "/" + fileName;
+    }
+
+    @Override
+    public Resource loadAsResource(String filename) {
+        try {
+            Path file = load(filename);
+            Resource resource = new UrlResource(file.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            }
+            else {
+                throw new BaseException(500, HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+                        "Could not read file: " + filename);
+
+            }
+        }
+        catch (MalformedURLException e) {
+            throw new BaseException(500, "INTERNAL_SERVER_ERROR",
+                    "Could not read file: " + filename + "\n" + e);
+        }
     }
 }

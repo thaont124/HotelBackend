@@ -17,7 +17,7 @@ public class ExchangeVoucherController {
     @Autowired
     private VoucherService voucherService;
     @PostMapping("/exchangevoucher/{idUser}")
-    public ResponseEntity<?> exchangeVoucher(@PathVariable("idUser") Integer idUser, @RequestBody ExchangeVoucherRequest exchangeVoucherRequest) {
+    public ResponseEntity<?> exchangeVoucher(@PathVariable("idUser") Integer idUser, @RequestBody ExchangeVoucherRequest exchangeVoucherRequest) throws BadRequestException {
          voucherService.exchangeVoucher(idUser,exchangeVoucherRequest);
          return new ResponseEntity<>(HttpStatus.OK);
     }

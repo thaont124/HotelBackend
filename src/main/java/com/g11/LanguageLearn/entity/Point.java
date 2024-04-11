@@ -15,7 +15,7 @@ public class Point {
     private Integer point;
 
     private Integer total;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "idUser")
     private User user;
 }

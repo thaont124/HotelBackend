@@ -9,6 +9,7 @@ import com.g11.LanguageLearn.entity.Photo;
 import com.g11.LanguageLearn.exception.base.NotFoundException;
 import com.g11.LanguageLearn.repository.*;
 import com.g11.LanguageLearn.service.HotelService;
+import com.g11.LanguageLearn.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,8 @@ public class HotelServiceImpl  implements HotelService {
     private PhotoRepository photoRepository;
     @Autowired
     private FeedbackRepository feedbackRepository;
+    @Autowired
+    private StorageService storageService;
 
     public List<HotelResponse> getList(Integer idSuggestion){
         List<Hotel> hotels = hotelRepository.getListBySuggestionID(idSuggestion);
@@ -53,7 +56,7 @@ public class HotelServiceImpl  implements HotelService {
 
         List<PhotoResponse> photosResponse = new ArrayList<>();
         for (Photo p : photoList){
-            photosResponse.add(new PhotoResponse(p.getType(), p.getUri()));
+            photosResponse.add(new PhotoResponse(p.getType(), storageService.getPhotoURL(p.getUri())));
         }
         HotelDetailResponse hotelResponse = new HotelDetailResponse();
         hotelResponse.setHotelName(branch.getHotel().getNameHotel());
@@ -61,5 +64,6 @@ public class HotelServiceImpl  implements HotelService {
         hotelResponse.setRate(feedbackRepository.getRateByIdBranch(idBranch));
         return hotelResponse;
     }
+
 
 }
