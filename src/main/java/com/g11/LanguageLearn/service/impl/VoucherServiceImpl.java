@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.service.impl;
 
+import com.g11.LanguageLearn.dto.request.ExchangeVoucherRequest;
 import com.g11.LanguageLearn.entity.ExchangeVoucher;
 import com.g11.LanguageLearn.entity.Point;
 import com.g11.LanguageLearn.entity.User;
@@ -35,9 +36,9 @@ public class VoucherServiceImpl implements VoucherService {
 
 
     @Override
-    public void exchangeVoucher(Integer idUser, Integer idVoucher) throws BadRequestException {
+    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest) throws BadRequestException {
         User user = userRepository.getById(idUser);
-        Voucher voucher = voucherRepository.getById(idVoucher);
+        Voucher voucher = voucherRepository.getById(exchangeVoucherRequest.getId());
         Integer point = pointRepository.getLastPoint(idUser).getPoint();
         if(point<voucher.getPointVoucher()){
             throw new BadRequestException();
