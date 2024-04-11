@@ -29,6 +29,20 @@ public class User {
 
     private String cccd;
 
+    public User() {
+    }
+
+    public User(String username, String password, String email, String firstName, String middleName, String lastName, String cccd, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.cccd = cccd;
+    }
+
     public String getFullName() {
         return firstName + " " + middleName + " " + lastName;
     }

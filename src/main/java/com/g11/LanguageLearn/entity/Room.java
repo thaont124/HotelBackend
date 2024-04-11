@@ -24,5 +24,4 @@ public class Room {
     @JoinColumn(name = "branch_id", referencedColumnName = "idBranch")
     private Branch branch;
 
-    private String img;
 }
