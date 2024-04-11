@@ -122,17 +122,17 @@ public class UserServiceImpl implements UserService {
             if(isPwdRight){
                 Optional<User> user = userRepository.findOneByUsernameAndPassword(loginRequest.getUsername(), encodedPassword);
                 if(user.isPresent()){
-                    return new LoginResponse("Login Success", true);
+                    return new LoginResponse(user.get().getIdUser(),"Login Success", true);
                 }else{
-                    return new LoginResponse("Login Failed", false);
+                    return new LoginResponse(null,"Login Failed", false);
 
                 }
             }else{
-                return new LoginResponse("Password Not Match", false);
+                return new LoginResponse(null,"Password Not Match", false);
             }
 
         }else{
-            return new LoginResponse("Username not exist", false);
+            return new LoginResponse(null,"Username not exist", false);
         }
     }
 }
