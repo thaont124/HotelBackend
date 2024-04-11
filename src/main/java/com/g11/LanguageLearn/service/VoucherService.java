@@ -12,5 +12,5 @@ public interface VoucherService {
 
 
 
-    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest) throws BadRequestException;
+    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest) ;
 }
