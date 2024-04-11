@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.service;
 
+import com.g11.LanguageLearn.dto.request.ExchangeVoucherRequest;
 import com.g11.LanguageLearn.entity.ExchangeVoucher;
 import com.g11.LanguageLearn.entity.Voucher;
 import org.apache.coyote.BadRequestException;
@@ -11,5 +12,5 @@ public interface VoucherService {
 
 
 
-    public void exchangeVoucher(Integer idUser,Integer idVoucher) throws BadRequestException;
+    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest) throws BadRequestException;
 }
