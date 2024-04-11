@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 
 public class LoginResponse {
+    Integer idUser;
     String message;
     Boolean status;
 }
