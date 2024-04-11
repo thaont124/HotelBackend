@@ -36,26 +36,22 @@ public class VoucherServiceImpl implements VoucherService {
 
 
     @Override
-    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest) throws BadRequestException {
+    public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest) {
         User user = userRepository.getById(idUser);
         Voucher voucher = voucherRepository.getById(exchangeVoucherRequest.getId());
         Integer point = pointRepository.getLastPoint(idUser).getPoint();
-        if(point<voucher.getPointVoucher()){
-            throw new BadRequestException();
-        }
-        else{
-            ExchangeVoucher exchangeVoucher = new ExchangeVoucher();
-            exchangeVoucher.setUser(user);
-            exchangeVoucher.setVoucher(voucher);
-            exchangeVoucher.setStatusVoucher(0);
-            exchangeVoucherRepository.save(exchangeVoucher);
+        ExchangeVoucher exchangeVoucher = new ExchangeVoucher();
+        exchangeVoucher.setUser(user);
+        exchangeVoucher.setVoucher(voucher);
+        exchangeVoucher.setStatusVoucher(0);
+        exchangeVoucherRepository.save(exchangeVoucher);
 
-            Point point1 =new Point();
-            point1.setUser(user);
-            point1.setStatusPoint(0);
-            point1.setPoint(voucher.getPointVoucher());
-            point1.setTotal(point-voucher.getPointVoucher());
-            pointRepository.save(point1);
-        }
+        Point point1 =new Point();
+        point1.setUser(user);
+        point1.setStatusPoint(0);
+        point1.setPoint(voucher.getPointVoucher());
+        point1.setTotal(point-voucher.getPointVoucher());
+        pointRepository.save(point1);
+
     }
 }
