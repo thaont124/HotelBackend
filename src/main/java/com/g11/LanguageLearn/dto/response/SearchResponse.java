@@ -16,7 +16,8 @@ public class SearchResponse {
 
     private String province;
 
-    private Integer rate;
+    private Float rate;
 
     private Float price;
+
 }
