@@ -10,5 +10,5 @@ import java.util.List;
 public interface RoomService {
     public List<SearchResponse> findAvailableRooms(String value, String checkin, String checkout);
 
-    public List<RoomResponse> getRoom(Integer id, String checkin, String checkout,String value);
+    public List<RoomResponse> getRoom(Integer id, String checkin, String checkout);
 }
