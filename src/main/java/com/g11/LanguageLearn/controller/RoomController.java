@@ -23,9 +23,9 @@ public class RoomController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/search/{value}/{id}")
-    public ResponseEntity<?> getRoomSearch(@PathVariable("value") String value,@PathVariable("id") Integer id,@RequestParam("checkin") String checkin,@RequestParam("checkout") String checkout){
-        List<RoomResponse> list = roomService.getRoom(id,checkin,checkout,value);
+    @GetMapping("/searchroom/{id}")
+    public ResponseEntity<?> getRoomSearch(@PathVariable("id") Integer id,@RequestParam("checkin") String checkin,@RequestParam("checkout") String checkout){
+        List<RoomResponse> list = roomService.getRoom(id,checkin,checkout);
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 

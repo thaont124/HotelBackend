@@ -16,4 +16,7 @@ public interface FeedbackRepository extends JpaRepository<Feedback,Integer>{
 
     @Query("select f.rate from Feedback f where f.branch.idBranch = :idBranch")
     Integer getRateByIdBranch(@Param("idBranch") Integer idBranch);
+
+    @Query("select avg (f.rate) from Feedback f where f.branch.idBranch  = :idBranch")
+    Float getFeedbackByBranch(@Param("idBranch") Integer idBranch);
 }
