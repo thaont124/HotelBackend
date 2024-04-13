@@ -1,11 +1,11 @@
 package com.g11.LanguageLearn.service.impl;
 
+import com.g11.LanguageLearn.dto.response.AddressResponse;
 import com.g11.LanguageLearn.dto.response.HotelDetailResponse;
 import com.g11.LanguageLearn.dto.response.HotelResponse;
 import com.g11.LanguageLearn.dto.response.PhotoResponse;
-import com.g11.LanguageLearn.entity.Branch;
-import com.g11.LanguageLearn.entity.Hotel;
-import com.g11.LanguageLearn.entity.Photo;
+import com.g11.LanguageLearn.entity.*;
+import com.g11.LanguageLearn.exception.base.BaseException;
 import com.g11.LanguageLearn.exception.base.NotFoundException;
 import com.g11.LanguageLearn.repository.*;
 import com.g11.LanguageLearn.service.HotelService;
@@ -25,7 +25,9 @@ public class HotelServiceImpl  implements HotelService {
     @Autowired
     private BranchRepository branchRepository;
     @Autowired
-    private PhotoRepository photoRepository;
+    private AddressRepository addressRepository;
+    @Autowired
+    private PhotoBranchRepository photoBranchRepository;
     @Autowired
     private FeedbackRepository feedbackRepository;
     @Autowired
@@ -34,7 +36,7 @@ public class HotelServiceImpl  implements HotelService {
     public List<HotelResponse> getList(Integer idSuggestion){
         List<Hotel> hotels = hotelRepository.getListBySuggestionID(idSuggestion);
         if(!suggestionRepository.existsById(idSuggestion)){
-            throw new NotFoundException();
+            throw new BaseException(404, "NOT_FOUND", "No hotel");
         }
 
         //chuyển đổi sang response trả ra fe
@@ -52,16 +54,22 @@ public class HotelServiceImpl  implements HotelService {
     @Override
     public HotelDetailResponse getDetailByBranchId(Integer idBranch) {
         Branch branch = branchRepository.findById(idBranch).orElseThrow();
-        List<Photo> photoList = photoRepository.getPhotoByIdHotel(branch.getHotel().getIdHotel());
+        List<PhotoBranch> photoList = photoBranchRepository.findAll();
+        Address address = addressRepository.getAddressByIdBranch(idBranch);
 
         List<PhotoResponse> photosResponse = new ArrayList<>();
-        for (Photo p : photoList){
-            photosResponse.add(new PhotoResponse(p.getType(), storageService.getPhotoURL(p.getUri())));
+        for (PhotoBranch p : photoList){
+            if (p.getBranch().getIdBranch() == idBranch){
+                photosResponse.add(new PhotoResponse(p.getType(), storageService.getPhotoURL(p.getUri())));
+            }
         }
+
         HotelDetailResponse hotelResponse = new HotelDetailResponse();
         hotelResponse.setHotelName(branch.getHotel().getNameHotel());
         hotelResponse.setPhoto(photosResponse);
         hotelResponse.setRate(feedbackRepository.getRateByIdBranch(idBranch));
+        hotelResponse.setAddress(new AddressResponse(address.getFullAddress(),
+                address.getCoordination().getLatitude(), address.getCoordination().getLongitude()));
         return hotelResponse;
     }
 
