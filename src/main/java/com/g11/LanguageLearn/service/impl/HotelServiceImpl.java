@@ -34,17 +34,23 @@ public class HotelServiceImpl  implements HotelService {
     private StorageService storageService;
 
     public List<HotelResponse> getList(Integer idSuggestion){
-        List<Hotel> hotels = hotelRepository.getListBySuggestionID(idSuggestion);
+        List<Branch> branches = hotelRepository.getListBySuggestionID(idSuggestion);
         if(!suggestionRepository.existsById(idSuggestion)){
             throw new BaseException(404, "NOT_FOUND", "No hotel");
         }
 
         //chuyển đổi sang response trả ra fe
         List<HotelResponse> result = new ArrayList<>();
-        for (Hotel hotel : hotels){
+        for (Branch branch : branches){
             HotelResponse hotelResponse = new HotelResponse();
-            hotelResponse.setNameHotel(hotel.getNameHotel());
+            hotelResponse.setNameHotel(branch.getHotel().getNameHotel());
+            hotelResponse.setLevel(branch.getLevel());
+            hotelResponse.setPrice(branchRepository.getAveragePricePerDayByBranchId(branch.getIdBranch()));
+            hotelResponse.setRate(feedbackRepository.getRateByIdBranch(branch.getIdBranch()));
 
+            //get image of branch
+            List<Photo> photoList = photoBranchRepository.getPhotoByIdHotel(branch.getIdBranch());
+            hotelResponse.setImage(photoList.isEmpty() ? "" : storageService.getPhotoURL(photoList.get(0).getUri()));
             result.add(hotelResponse);
         }
 
