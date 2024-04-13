@@ -6,7 +6,7 @@ import com.g11.LanguageLearn.dto.response.PhotoResponse;
 import com.g11.LanguageLearn.entity.Feedback;
 import com.g11.LanguageLearn.entity.Photo;
 import com.g11.LanguageLearn.entity.PhotoFeedback;
-import com.g11.LanguageLearn.entity.PhotoHotel;
+import com.g11.LanguageLearn.entity.PhotoBranch;
 import com.g11.LanguageLearn.exception.base.BaseException;
 import com.g11.LanguageLearn.exception.base.NotFoundException;
 import com.g11.LanguageLearn.repository.BranchRepository;

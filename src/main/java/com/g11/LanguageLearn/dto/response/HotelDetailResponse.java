@@ -8,7 +8,9 @@ import java.util.List;
 public class HotelDetailResponse {
     private String hotelName;
 
-    private Integer rate;
+    private Float rate;
 
     List<PhotoResponse> photo;
+
+    private AddressResponse address;
 }
