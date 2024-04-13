@@ -196,7 +196,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String getPhotoURL(String fileName) {
-        return "https://" + domain + "/" + fileName;
+        return "https://protective-toes-production.up.railway.app/apiv1/" + fileName;
     }
 
     @Override
