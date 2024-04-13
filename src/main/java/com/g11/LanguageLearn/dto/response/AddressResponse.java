@@ -11,4 +11,8 @@ public class AddressResponse {
     private Float latitude; //vi do
 
     private Float longitude; //kinh do
+
+    public AddressResponse() {
+
+    }
 }

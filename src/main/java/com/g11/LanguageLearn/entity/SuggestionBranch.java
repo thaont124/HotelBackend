@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class SuggestionHotel {
+public class SuggestionBranch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSuggestionHotel;
@@ -14,6 +14,6 @@ public class SuggestionHotel {
     @JoinColumn(name = "suggestion_id", referencedColumnName = "idSuggestion")
     private Suggestion suggestion;
     @ManyToOne
-    @JoinColumn(name = "hotel_id", referencedColumnName = "idHotel")
-    private Hotel hotel;
+    @JoinColumn(name = "branch_id", referencedColumnName = "idBranch")
+    private Branch branch;
 }
