@@ -3,22 +3,21 @@ package com.g11.LanguageLearn.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
-public class PhotoHotel extends Photo{
+public class PhotoBranch extends Photo{
     @ManyToOne
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
 
-    public PhotoHotel(String uri, String type, Hotel hotel) {
+    public PhotoBranch(String uri, String type, Branch branch) {
         super(uri, type);
-        this.hotel = hotel;
+        this.branch = branch;
     }
 }
 
