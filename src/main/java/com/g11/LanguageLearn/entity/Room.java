@@ -14,8 +14,6 @@ public class Room {
 
     private Float pricePerDay;
 
-    private Float pricePerHour;
-
     @ManyToOne
     @JoinColumn(name = "type_room_id", referencedColumnName = "idTypeRoom")
     private TypeRoom typeRoom;

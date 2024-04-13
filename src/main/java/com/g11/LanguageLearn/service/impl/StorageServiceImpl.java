@@ -10,12 +10,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import com.g11.LanguageLearn.entity.PhotoFeedback;
-import com.g11.LanguageLearn.entity.PhotoHotel;
+import com.g11.LanguageLearn.entity.PhotoBranch;
 import com.g11.LanguageLearn.entity.PhotoRoom;
 import com.g11.LanguageLearn.exception.base.BaseException;
 import com.g11.LanguageLearn.property.StorageProperties;
 import com.g11.LanguageLearn.repository.PhotoFeedbackRepository;
-import com.g11.LanguageLearn.repository.PhotoHotelRepository;
+import com.g11.LanguageLearn.repository.PhotoBranchRepository;
 import com.g11.LanguageLearn.repository.PhotoRoomRepository;
 import com.g11.LanguageLearn.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class StorageServiceImpl implements StorageService {
     @Autowired
     private PhotoFeedbackRepository photoFeedbackRepository;
     @Autowired
-    private PhotoHotelRepository photoHotelRepository;
+    private PhotoBranchRepository photoHotelRepository;
     @Autowired
     private PhotoRoomRepository photoRoomRepository;
     @Value("${domain}")
@@ -189,8 +189,8 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public PhotoHotel savePhotoHotel(PhotoHotel photo) {
-        PhotoHotel savedPhoto = photoHotelRepository.save(photo);
+    public PhotoBranch savePhotoHotel(PhotoBranch photo) {
+        PhotoBranch savedPhoto = photoHotelRepository.save(photo);
         return savedPhoto;
     }
 
@@ -203,7 +203,7 @@ public class StorageServiceImpl implements StorageService {
     public Resource loadAsResource(String filename) {
         try {
             Path file = load(filename);
-            Resource resource = new UrlResource(file.toUri());
+                Resource resource = new UrlResource(file.toUri());
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             }

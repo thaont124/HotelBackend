@@ -1,7 +1,7 @@
 package com.g11.LanguageLearn.service;
 
+import com.g11.LanguageLearn.entity.PhotoBranch;
 import com.g11.LanguageLearn.entity.PhotoFeedback;
-import com.g11.LanguageLearn.entity.PhotoHotel;
 import com.g11.LanguageLearn.entity.PhotoRoom;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +30,7 @@ public interface StorageService {
 
     PhotoFeedback savePhotoFeedback(PhotoFeedback photo);
 
-    PhotoHotel savePhotoHotel(PhotoHotel photo);
+    PhotoBranch savePhotoHotel(PhotoBranch photo);
 
     String getPhotoURL(String fileName);
 
