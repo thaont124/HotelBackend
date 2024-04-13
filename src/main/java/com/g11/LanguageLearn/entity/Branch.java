@@ -19,4 +19,6 @@ public class Branch {
     private Hotel hotel;
 
     private Float price;
+
+    private Integer level;
 }
