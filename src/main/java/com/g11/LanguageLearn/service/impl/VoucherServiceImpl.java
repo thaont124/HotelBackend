@@ -39,7 +39,7 @@ public class VoucherServiceImpl implements VoucherService {
     public void exchangeVoucher(Integer idUser, ExchangeVoucherRequest exchangeVoucherRequest)  {
         User user = userRepository.findById(idUser).get();
         Voucher voucher = voucherRepository.getById(exchangeVoucherRequest.getId());
-        Integer point = pointRepository.getLastPoint(idUser).getPoint();
+        Integer point = pointRepository.getLastPoint(idUser).getTotal();
 
         ExchangeVoucher exchangeVoucher = new ExchangeVoucher();
         exchangeVoucher.setUser(user);
