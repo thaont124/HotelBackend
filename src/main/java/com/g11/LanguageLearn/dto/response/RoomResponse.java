@@ -10,5 +10,6 @@ public class RoomResponse {
     private String numberRoom;
     private String typeRoom;
     private Float pricePerDay;
+    private String image;
 
 }

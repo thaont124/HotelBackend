@@ -20,4 +20,6 @@ public class SearchResponse {
 
     private Float price;
 
+    private String image;
+
 }

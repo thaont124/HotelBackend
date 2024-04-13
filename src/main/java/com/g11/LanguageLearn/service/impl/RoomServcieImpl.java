@@ -4,8 +4,12 @@ import com.g11.LanguageLearn.dto.request.SearchRequest;
 import com.g11.LanguageLearn.dto.response.MyVoucherResponse;
 import com.g11.LanguageLearn.dto.response.RoomResponse;
 import com.g11.LanguageLearn.dto.response.SearchResponse;
+import com.g11.LanguageLearn.entity.Photo;
 import com.g11.LanguageLearn.entity.Room;
 import com.g11.LanguageLearn.repository.FeedbackRepository;
+import com.g11.LanguageLearn.repository.PhotoBranchRepository;
+import com.g11.LanguageLearn.repository.PhotoRepository;
+import com.g11.LanguageLearn.repository.PhotoRoomRepository;
 import com.g11.LanguageLearn.service.RoomService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -24,7 +28,11 @@ public class RoomServcieImpl implements RoomService {
 
     @Autowired
     private FeedbackRepository feedbackRepository;
+    @Autowired
+    private PhotoRoomRepository photoRoomRepository;
 
+    @Autowired
+    private PhotoBranchRepository photoBranchRepository;
 
     @Override
     public List<SearchResponse> findAvailableRooms(String value, String checkin, String checkout) {
@@ -50,8 +58,9 @@ public class RoomServcieImpl implements RoomService {
         List<Object[]> results = query.getResultList();
 
         for (Object[] result : results) {
+            String image = photoBranchRepository.getPhotoByIdHotel((Integer) result[0]).get(0).getUri();
             float a = feedbackRepository.getFeedbackByBranch((Integer) result[0]);
-            SearchResponse bran = new SearchResponse((Integer) result[0],(String) result[1],(String) result[2],(String) result[3],(String) result[4],a,(Float) result[5]);
+            SearchResponse bran = new SearchResponse((Integer) result[0],(String) result[1],(String) result[2],(String) result[3],(String) result[4],a,(Float) result[5],image);
 
             myVoucherResponses.add(bran);
         }
@@ -79,10 +88,12 @@ public class RoomServcieImpl implements RoomService {
         List<Object[]> results = query.getResultList();
 
         for (Object[] result : results) {
-            RoomResponse bran = new RoomResponse((Integer) result[0],(String) result[1],(String) result[2],(Float) result[3]);
-
+            List<Photo> photos = photoRoomRepository.getPhotoByIdRoom((Integer) result[0]);
+            String image = photos.isEmpty() ? null : photos.get(0).getUri();
+            RoomResponse bran = new RoomResponse((Integer) result[0],(String) result[1],(String) result[2],(Float) result[3], image);
             myVoucherResponses.add(bran);
         }
+
 
         return myVoucherResponses;
     }
