@@ -8,11 +8,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @Entity
 @NoArgsConstructor
 public class PhotoRoom extends Photo{
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
+
+    public PhotoRoom(String uri, String type, Room room) {
+        super(uri, type);
+        this.room = room;
+    }
 }
