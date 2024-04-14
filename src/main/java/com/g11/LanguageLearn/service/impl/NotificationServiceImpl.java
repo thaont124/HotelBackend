@@ -12,6 +12,8 @@ import com.g11.LanguageLearn.repository.NotificationSettingRepository;
 import com.g11.LanguageLearn.repository.UserRepository;
 import com.g11.LanguageLearn.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -101,5 +103,17 @@ public class NotificationServiceImpl implements NotificationService {
         SettingResponse settingResponse = new SettingResponse(savedSetting.getNoticeCheckin(),
                 savedSetting.getTimeBeforeCheckin(), savedSetting.getNoticePoint());
         return settingResponse;
+    }
+
+    @Override
+    public Notification patchType(Integer id) {
+        Optional<Notification> optionalNotification = notificationRepository.findById(id);
+        if (!optionalNotification.isPresent()){
+            throw new BaseException(404, "NOT_FOUND", "Notification with id " + id + " not found");
+        }
+        Notification notification = optionalNotification.get();
+        notification.setType("1");
+        Notification savedNotification = notificationRepository.save(notification);
+        return savedNotification;
     }
 }

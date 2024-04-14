@@ -4,10 +4,7 @@ import com.g11.LanguageLearn.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("apiv1/notification")
@@ -22,5 +19,11 @@ public class NotificationController {
     @GetMapping("/detail/{idNotification}")
     public ResponseEntity<?> getDetail(@PathVariable("idNotification") Integer idNotification){
         return new ResponseEntity<>(notificationService.getDetailBill(idNotification), HttpStatus.OK);
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateNotificationType(@PathVariable("id") Integer id) {
+
+        return new ResponseEntity<>(notificationService.patchType(id), HttpStatus.OK);
+
     }
 }
