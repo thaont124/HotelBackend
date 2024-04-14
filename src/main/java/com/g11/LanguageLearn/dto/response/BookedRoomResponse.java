@@ -10,4 +10,8 @@ public class BookedRoomResponse {
     private String typeRoom;
     private String hotelName;
     private String pricePerDay;
+
+    public BookedRoomResponse() {
+
+    }
 }

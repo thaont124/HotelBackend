@@ -11,6 +11,7 @@ import com.g11.LanguageLearn.exception.base.BaseException;
 import com.g11.LanguageLearn.exception.base.NotFoundException;
 import com.g11.LanguageLearn.repository.BranchRepository;
 import com.g11.LanguageLearn.repository.FeedbackRepository;
+import com.g11.LanguageLearn.repository.PhotoFeedbackRepository;
 import com.g11.LanguageLearn.service.FeedbackService;
 import com.g11.LanguageLearn.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     private BranchRepository branchRepository;
     @Autowired
     private StorageService storageService;
+    @Autowired
+    private PhotoFeedbackRepository photoFeedbackRepository;
 
     public List<FeedbackResponse> getList(Integer idBranch){
         List<Feedback> feedbacks = feedbackRepository.getListByBranchID(idBranch);
@@ -38,9 +41,14 @@ public class FeedbackServiceImpl implements FeedbackService {
         List<FeedbackResponse> result = new ArrayList<>();
         for (Feedback feedback : feedbacks){
             FeedbackResponse feedbackRespone = new FeedbackResponse();
-
+            List<Photo> photoList = photoFeedbackRepository.getPhotoByIdFeedback(feedback.getIdFeedback());
+            List<PhotoResponse> photosResponse = new ArrayList<>();
+            for (Photo p : photoList){
+                photosResponse.add(new PhotoResponse(p.getType(), storageService.getPhotoURL(p.getUri())));
+            }
+            feedbackRespone.setIdBranch(idBranch);
             feedbackRespone.setRate(feedback.getRate());
-//            feedbackRespone.setImgFeedback(feedback.getImgFeedback());
+            feedbackRespone.setImgFeedback(photosResponse);
             feedbackRespone.setContent(feedback.getContent());
 
             result.add(feedbackRespone);
