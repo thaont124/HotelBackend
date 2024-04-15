@@ -21,4 +21,47 @@ public class BookedRoom {
     @JoinColumn(name = "bill_id", referencedColumnName = "idBill")
     private Bill bill;
     private String statusPayment;
+
+    public BookedRoom(Integer idBookedRoom, Room room, Bill bill, String statusPayment) {
+        this.idBookedRoom = idBookedRoom;
+        this.room = room;
+        this.bill = bill;
+        this.statusPayment = statusPayment;
+    }
+
+    public Integer getIdBookedRoom() {
+        return idBookedRoom;
+    }
+
+    public void setIdBookedRoom(Integer idBookedRoom) {
+        this.idBookedRoom = idBookedRoom;
+    }
+
+    public BookedRoom(){
+
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
+    public String getStatusPayment() {
+        return statusPayment;
+    }
+
+    public void setStatusPayment(String statusPayment) {
+        this.statusPayment = statusPayment;
+    }
 }

@@ -17,4 +17,8 @@ public class BillResponse {
     private List<BookedRoomResponse> room;
 
     private CustomerInBillResponse customer;
+
+    public BillResponse() {
+
+    }
 }

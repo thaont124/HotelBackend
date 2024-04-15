@@ -36,4 +36,7 @@ public class Bill {
     public String getStatusString(){
         return this.status == 1 ? "Đã thanh toán" : "Chưa thanh toán";
     }
+
+    public void getCodeBill(String string) {
+    }
 }

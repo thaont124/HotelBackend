@@ -1,5 +1,6 @@
 package com.g11.LanguageLearn.controller;
 
+import com.g11.LanguageLearn.dto.request.BookedRoomRequest;
 import com.g11.LanguageLearn.dto.response.BookedRoomResponse;
 import com.g11.LanguageLearn.dto.response.UtilityResponse;
 import com.g11.LanguageLearn.service.BookedRoomService;
@@ -7,10 +8,7 @@ import com.g11.LanguageLearn.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +25,12 @@ public class BookedRoomController {
         return new ResponseEntity<>(list, HttpStatus.OK);
 
     }
+
+    @PostMapping("postbooking/{idBill}")
+    public ResponseEntity<?> postbooing(@PathVariable("idBill") Integer idBill,@RequestBody BookedRoomRequest bookedRoomRequest){
+        bookedRoomService.bookRooms(idBill,bookedRoomRequest);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
 }

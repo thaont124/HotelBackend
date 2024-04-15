@@ -29,9 +29,23 @@ public class User {
 
     private String cccd;
 
-    public User() {
+    public User(Integer userId) {
+    }
+    public User(){
+
     }
 
+//    public User(Integer idUser, String username, String password, String firstName, String middleName, String lastName, String phoneNumber, String email, String cccd) {
+//        this.idUser = idUser;
+//        this.username = username;
+//        this.password = password;
+//        this.firstName = firstName;
+//        this.middleName = middleName;
+//        this.lastName = lastName;
+//        this.phoneNumber = phoneNumber;
+//        this.email = email;
+//        this.cccd = cccd;
+//    }
     public User(String username, String password, String email, String firstName, String middleName, String lastName, String cccd, String phoneNumber) {
         this.username = username;
         this.password = password;
@@ -42,6 +56,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.cccd = cccd;
     }
+
 
     public String getFullName() {
         return firstName + " " + middleName + " " + lastName;
