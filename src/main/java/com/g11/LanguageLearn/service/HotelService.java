@@ -8,4 +8,5 @@ import java.util.List;
 public interface HotelService {
     List<HotelResponse> getList(Integer idSuggestion);
     HotelDetailResponse getDetailByBranchId(Integer idBranch);
+
 }

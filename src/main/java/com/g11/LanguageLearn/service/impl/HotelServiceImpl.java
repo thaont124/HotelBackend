@@ -47,6 +47,7 @@ public class HotelServiceImpl  implements HotelService {
             hotelResponse.setLevel(branch.getLevel());
             hotelResponse.setPrice(branchRepository.getAveragePricePerDayByBranchId(branch.getIdBranch()));
             hotelResponse.setRate(feedbackRepository.getRateByIdBranch(branch.getIdBranch()));
+            hotelResponse.setPlace(branch.getAddress().getProvince());
 
             //get image of branch
             List<Photo> photoList = photoBranchRepository.getPhotoByIdHotel(branch.getIdBranch());

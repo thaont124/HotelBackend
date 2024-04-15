@@ -26,4 +26,10 @@ public class UtilityController {
         return new ResponseEntity<>(list, HttpStatus.OK);
 
     }
+
+    @GetMapping("getAll")
+    public ResponseEntity<?> getAllUtilities() {
+        List<UtilityResponse> utilities = utilityService.getAllUtilities();
+        return new ResponseEntity<>(utilities, HttpStatus.OK);
+    }
 }

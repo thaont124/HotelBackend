@@ -36,4 +36,16 @@ public class UtilityServiceImpl implements UtilityService {
 
         return result;
     }
+
+    @Override
+    public List<UtilityResponse> getAllUtilities() {
+        List<Utility> utilities = utilityRepository.findAll();
+        List<UtilityResponse> responses = new ArrayList<>();
+        for (Utility utility : utilities) {
+            UtilityResponse response = new UtilityResponse();
+            response.setName(utility.getNameUtility());
+            responses.add(response);
+        }
+        return responses;
+    }
 }
