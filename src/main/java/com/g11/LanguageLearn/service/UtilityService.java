@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UtilityService {
     List<UtilityResponse> getList(Integer idTypeRoom);
+
+    List<UtilityResponse> getAllUtilities();
 }

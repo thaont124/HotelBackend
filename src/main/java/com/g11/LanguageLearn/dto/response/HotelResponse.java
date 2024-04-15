@@ -9,4 +9,5 @@ public class HotelResponse {
     private Float rate;
     private Float price;
     private String image;
+    private String place;
 }
