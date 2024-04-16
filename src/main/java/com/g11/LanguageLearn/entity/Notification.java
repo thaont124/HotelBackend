@@ -3,6 +3,7 @@ package com.g11.LanguageLearn.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @Entity
@@ -23,4 +24,5 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "bill_id")
     private Bill bill;
+
 }
