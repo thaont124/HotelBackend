@@ -16,9 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -42,7 +41,16 @@ public class NotificationServiceImpl implements NotificationService {
             result.add(new NotificationResponse(notification.getIdNotification(), notification.getContent(),
                     notification.getDateNotice().toString(), notification.getType()));
         }
-
+        Collections.sort(result, new Comparator<NotificationResponse>() {
+            @Override
+            public int compare(NotificationResponse o1, NotificationResponse o2) {
+                // Chuyển đổi date_notice từ kiểu String sang LocalDate (hoặc Date)
+                LocalDate date1 = LocalDate.parse(o1.getDateNotice());
+                LocalDate date2 = LocalDate.parse(o2.getDateNotice());
+                // Sử dụng compareTo để so sánh ngày
+                return date2.compareTo(date1);
+            }
+        });
         return result;
     }
 
